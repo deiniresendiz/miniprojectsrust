@@ -1,19 +1,22 @@
+use regex::Regex;
+
 fn main() {
-    let nombre: &str = "deini";
-    let edad: u8 = 18;
 
-    println!("Hola soy {} y tengo {} años", nombre, edad);
+    print!("Calculdora")
 
-    println!("por favor int tu nombre:");
-    let mut name:String = String::new();
-    std::io::stdin().read_line(&mut name).unwrap();
-    name = name.trim().to_string();
+    //regex
+    let re_add = Regex::new(r"(\d+)\s?\+\s?(\d+)").unwrap();
 
-    println!("por favor int tu edad:");
-    let mut year:String = String::new();
-    std::io::stdin().read_line(&mut year).unwrap();
-    let year_int:u8 = year.trim().parse().unwrap();
+    // taer datos user
+    print!("Ingrese una operacion: ");
+    let mut expression = String::new();
+    io::stdin().read_line(&mut expression).unwrap();
 
+    // applid operations
+    let caps = re_add.captures(&expression.as_str()).unwrap();
+    let left_value: i32 = caps.get(1).unwrap().as_str().parse().unwrap();
+    let right_value: i32 = caps.get(2).unwrap().as_str().parse().unwrap();
 
-    println!("Hola {} y edad {}", name, year_int);
+    let addition = left_value + right_value;
+    
 }
